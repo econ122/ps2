@@ -1,0 +1,112 @@
+---
+title: "Problem Set 2"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, collapse = TRUE)
+# Load all necessary packages for the problem set
+library(readr)
+```
+
+## 📊 The Challenge: The Global Widget Sales Dataset
+
+**Estimated Time:** 60-75 minutes
+
+You've have been hired as a data analyst role and are  responsible for a dataset of **500 records**. Your task is to investigate and prepare this dataset for a predictive model that will forecast future sales. This assignment will test your skills in advanced exploratory data analysis (EDA), robust data cleaning, and sophisticated feature engineering.
+
+First, let's load the dataset.
+
+```{r}
+global_sales <- read_csv("ps2_sales_data.csv")
+```
+
+### Part 1: The Data is Dirty
+
+You discover the dataset has inconsistencies that could lead to inaccurate analysis. Before moving forward, you need to apply robust data cleaning techniques.
+
+**Question 1.1:** First, calculate the average `units_sold` by `product_category` without any cleaning. Then, use a function from `stringr` to standardize `product_category` into a single, consistent format and recalculate the averages. Compare the results to demonstrate why data cleaning matters.
+
+```{r}
+# Your code for Question 1.1 here
+```
+
+**Question 1.2:** The `sale_date` column is already in a date format, but for a different type of analysis, you need to create two new columns: `sale_month` (a number from 1-12) and `sale_day_of_week` (the full name of the day, e.g., "Monday"). Use functions from the `lubridate` package to extract this information.
+
+```{r}
+# Your code for Question 1.2 here
+```
+
+**Short Answer:**
+
+Explain why it is critical for a predictive model to have a standardized `product_category` column rather than using the raw, inconsistent strings. Provide a brief example of how a model might be misled by the uncleaned data.
+
+### Part 2: Initial Investigation & Anomaly Detection
+
+Your second task is to explore the data and look for anomalies. A good starting point is to visualize the relationship between key variables. You'll also use a statistical method to identify potential outliers in sales data.
+
+**Question 2.1:** Create a scatter plot visualizing the relationship between `marketing_spend` (x-axis) and `units_sold` (y-axis). Add a linear regression trend line and facet the plot by `region`. What insights can you gain about the regional effectiveness of marketing?
+
+```{r}
+# Your code for Question 2.1 here
+```
+
+**Question 2.2:** Using the `sale_day_of_week` variable you created in Part 1, calculate the average `units_sold` by day of the week and create a bar plot to visualize this pattern. What pattern emerges regarding sales throughout the week?
+```{r}
+# Your code for Question 2.2 here
+```
+
+
+**Question 2.3:** Use a box plot to visually identify any outliers in the `units_sold` variable. Then, calculate the Z-score for each observation. According to the Z-score method, any value with an absolute Z-score greater than 3 is considered an extreme outlier. How many extreme outliers do you find?
+
+```{r}
+# Your code for Question 2.3 here
+```
+
+**Short Answer:**
+
+Compare the outliers identified by the box plot versus the Z-score method. Why might they differ? Which method would you prefer for this dataset, and why?
+
+### Part 3: Engineering for Insight
+
+Your manager wants you to formally model the day of week patterns you saw in `2.2`. Your task is to apply **feature engineering** to create a new binary variable to capture these patterns
+
+**Question 3.1:** Create a new variable that captures the weekly pattern 
+
+  - *Hint:* It should be a binary variable that relies on your previous insights.
+
+```{r}
+# Your code for Question 3.1 here
+```
+
+**Question 3.2:** What is the average `units_sold` when splitting by your new variable? What does this new feature reveal about sales patterns?
+
+```{r}
+# Your code for Question 3.2 here
+```
+
+**Short Answer:**
+
+Explain why creating your new binary variable is more powerful for a predictive model than using the raw `sale_date` column directly.
+
+### Part 4: Feature Engineering with Interaction Terms
+
+Based on your initial investigation in Part 2, you noticed that marketing spend seems to have a different effect across regions. Create an **interaction term** that captures this effect for the region where you think marketing spend has the biggest impact
+
+**Question 4.1:** Calculate and print the correlation between your new **interaction term** and `units_sold`.
+
+```{r}
+# Your code for Question 4.1 here
+```
+
+**Short Answer:**
+
+What did you learn from comparing the correlation of your new **interaction term** with `units_sold` versus the unconditional correlation of `marketing_spend` with `units_sold`? What does this reveal about feature engineering?
+
+### Part 5: Synthesis and Conclusion
+
+**Question 5:** Based on your analysis in Parts 1-4, synthesize your findings and write a brief summary of the key insights you would present to the sales team.
+
+**Short Answer:**
